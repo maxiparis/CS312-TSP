@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8147444f-877c-400d-86d6-855a21a90541" name="Changes" comment="Greedy: findShortestPathFrom fixed return values">
+    <list default="true" id="8147444f-877c-400d-86d6-855a21a90541" name="Changes" comment="Greedy: findTourGreedy progress until check if end city can go back to start">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TSPClasses.py" beforeDir="false" afterPath="$PROJECT_DIR$/TSPClasses.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TSPSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/TSPSolver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +92,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1711214454898</updated>
-      <workItem from="1711214460027" duration="9381000" />
+      <workItem from="1711214460027" duration="13307000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -125,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711224040128</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Greedy: findTourGreedy progress until check if end city can go back to start">
+      <option name="closed" value="true" />
+      <created>1711228508600</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711228508600</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,7 +156,8 @@
     <MESSAGE value="Greedy: about to start" />
     <MESSAGE value="Greedy: findShortestPathFrom" />
     <MESSAGE value="Greedy: findShortestPathFrom fixed return values" />
-    <option name="LAST_COMMIT_MESSAGE" value="Greedy: findShortestPathFrom fixed return values" />
+    <MESSAGE value="Greedy: findTourGreedy progress until check if end city can go back to start" />
+    <option name="LAST_COMMIT_MESSAGE" value="Greedy: findTourGreedy progress until check if end city can go back to start" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -162,15 +172,25 @@
           <line>76</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TSPSolver.py</url>
+          <line>125</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TSPSolver.py</url>
+          <line>144</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="results" />
+        <watch expression="route" />
       </configuration>
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/project5_tsp$Proj5GUI.coverage" NAME="Proj5GUI Coverage Results" MODIFIED="1711225849773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/project5_tsp$Proj5GUI.coverage" NAME="Proj5GUI Coverage Results" MODIFIED="1711237232261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

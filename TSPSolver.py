@@ -82,16 +82,22 @@ class TSPSolver:
         bssf = None
         start_time = time.time()
 
-        startCityIndex = 0  # TODO: after each iteration I need to increase
+        startCityIndex = 0
         allCitiesHaveBeenAStart = startCityIndex == numberCities  # Used to check if I should keep traversing cities
-        # TODO: calculate in each iteration
 
         while not foundTour and time.time() - start_time < time_allowance:
             count += 1  # Increase count on every iteration
             if not allCitiesHaveBeenAStart:
                 bssf, foundTour = self.findTourGreedy(cities[startCityIndex], cities, numberCities)
+                self.setCitiesToUnvisited(cities)
+                if foundTour:
+                    break
+                else:
+                    startCityIndex += 1
+                    allCitiesHaveBeenAStart = startCityIndex == numberCities
+
             else:  # Every city was a start point and no route was found
-                break
+                break  # ... out of the loop and finish
 
 
 
@@ -122,22 +128,32 @@ class TSPSolver:
         currentCity = startCity
         currentCity.setVisited(True)
 
-        for i in range(numberCities):
+        for i in range(numberCities-1):
             nextCity = self.findShortestPathFrom(currentCity, cities, numberCities)
             if nextCity is None:
                 return None, thereIsTour
             currentCity = nextCity
             currentCity.setVisited(True)
-
             route.append(currentCity)
 
         # After going through every city, and getting to the last one, check if that last one can go back to start city
-        # TODO: work here
-
+        if currentCity.costTo(startCity) != np.inf:
+            thereIsTour = True
+        else:  # the last city in route[] does not go connect to startCity, therefore there is no route
+            return None, thereIsTour
 
         bssf = TSPSolution(route)
 
         return bssf, thereIsTour
+
+    def setCitiesToUnvisited(self, cities):
+        """
+        Set all the cities in an array to unvisited.
+        """
+        for city in cities:
+            city.setVisited(False)
+
+
 
     def findShortestPathFrom(self, originCity, cities, numberCities):  # TODO: TEST
         """
@@ -172,6 +188,8 @@ class TSPSolver:
     def branchAndBound(self, time_allowance=60.0):
         # TODO: implement
         pass
+
+
 
 
 

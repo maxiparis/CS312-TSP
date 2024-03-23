@@ -175,3 +175,10 @@ class City:
                 cost = 0.0
 
         return int(math.ceil(cost * self.MAP_SCALE))
+
+    def __str__(self):
+        return f"City({self._name}): Elevation: {self._elevation}, Index: {self._index}, Coordinates: ({self._x}, {self._y}), Visited: {self.visited}"
+
+    def __repr__(self):
+        return f"City({self._name}): Elevation: {self._elevation}, Index: {self._index}, Coordinates: ({self._x}, {self._y}), Visited: {self.visited}"
+
