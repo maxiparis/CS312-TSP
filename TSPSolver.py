@@ -84,9 +84,8 @@ class TSPSolver:
 
         while not foundTour and time.time() - start_time < time_allowance:
             for i in range(numberCities):  # Start from each city until a route has been found
-
                 currentCity = cities[i]
-                self.findShortestPathFrom(currentCity, cities, numberCities)
+                destinationCity = self.findShortestPathFrom(currentCity, cities, numberCities)
 
 
 
@@ -122,8 +121,7 @@ class TSPSolver:
                 lowestCost = costToDestinationCity
                 lowestCity = destinationCity
 
-        return lowestCity if lowestCity is not None else None
-
+        return lowestCity, lowestCost
 
     ''' <summary>
 		This is the entry point for the branch-and-bound algorithm that you will implement
