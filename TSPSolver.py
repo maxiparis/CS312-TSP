@@ -77,15 +77,21 @@ class TSPSolver:
         results = {}
         cities = self._scenario.getCities()
         numberCities = len(cities)
-        foundTour = False
+        foundTour = False  # There is a path from a start city to that same start city (tour)
         count = 0
         bssf = None
         start_time = time.time()
 
+        startCityIndex = 0  # TODO: after each iteration I need to increase
+        allCitiesHaveBeenAStart = startCityIndex == numberCities  # Used to check if I should keep traversing cities
+        # TODO: calculate in each iteration
+
         while not foundTour and time.time() - start_time < time_allowance:
-            for i in range(numberCities):  # Start from each city until a route has been found
-                currentCity = cities[i]
-                destinationCity = self.findShortestPathFrom(currentCity, cities, numberCities)
+            count += 1  # Increase count on every iteration
+            if not allCitiesHaveBeenAStart:
+                bssf, foundTour = self.findTourGreedy(cities[startCityIndex], cities, numberCities)
+            else:  # Every city was a start point and no route was found
+                break
 
 
 
@@ -101,7 +107,39 @@ class TSPSolver:
 
         return results
 
-    def findShortestPathFrom(self, originCity, cities, numberCities) -> City:  # TODO: TEST
+    def findTourGreedy(self, startCity, cities, numberCities):
+        """
+        Used by greedy algorithm.
+        Tries to traverse through all the cities, starting and ending in the startCity.
+        :param startCity: the city that will be origin and the end
+        :param cities: all the cities to visit
+        :param numberCities: total number of cities, 1 based.
+        :return:    bssf -> TSPSolution, includes the route and the cost using ._costOfRoute()
+                    thereIsTour: bool, true if there is a route, false otherwise
+        """
+        thereIsTour = False
+        route = [startCity]
+        currentCity = startCity
+        currentCity.setVisited(True)
+
+        for i in range(numberCities):
+            nextCity = self.findShortestPathFrom(currentCity, cities, numberCities)
+            if nextCity is None:
+                return None, thereIsTour
+            currentCity = nextCity
+            currentCity.setVisited(True)
+
+            route.append(currentCity)
+
+        # After going through every city, and getting to the last one, check if that last one can go back to start city
+        # TODO: work here
+
+
+        bssf = TSPSolution(route)
+
+        return bssf, thereIsTour
+
+    def findShortestPathFrom(self, originCity, cities, numberCities):  # TODO: TEST
         """
         Goes through each edge coming from originCity and returns the city with the minimum cost edge.
         :param numberCities:
@@ -121,7 +159,7 @@ class TSPSolver:
                 lowestCost = costToDestinationCity
                 lowestCity = destinationCity
 
-        return lowestCity, lowestCost
+        return lowestCity
 
     ''' <summary>
 		This is the entry point for the branch-and-bound algorithm that you will implement
@@ -134,5 +172,7 @@ class TSPSolver:
     def branchAndBound(self, time_allowance=60.0):
         # TODO: implement
         pass
+
+
 
 
