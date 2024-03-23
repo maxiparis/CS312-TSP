@@ -83,17 +83,12 @@ class TSPSolver:
         start_time = time.time()
 
         while not foundTour and time.time() - start_time < time_allowance:
-            # create a random permutation
-            perm = np.random.permutation(numberCities)
-            route = []
-            # Now build the route using the random permutation
-            for i in range(numberCities):
-                route.append(cities[perm[i]])
-            bssf = TSPSolution(route)
-            count += 1
-            if bssf.cost < np.inf:
-                # Found a valid route
-                foundTour = True
+            for i in range(numberCities):  # Start from each city until a route has been found
+
+                currentCity = cities[i]
+                self.findShortestPathFrom(currentCity, cities, numberCities)
+
+
 
         end_time = time.time()
 
@@ -107,6 +102,29 @@ class TSPSolver:
 
         return results
 
+    def findShortestPathFrom(self, originCity, cities, numberCities) -> City:  # TODO: TEST
+        """
+        Goes through each edge coming from originCity and returns the city with the minimum cost edge.
+        :param numberCities:
+        :param cities:
+        :param originCity: city where the edge will be going to another city.
+        :return: the city with the lowest edge cost
+        """
+        lowestCity = None  # Update as I go through each city
+        lowestCost = np.inf
+
+        for i in range(numberCities):
+            destinationCity = cities[i]
+            if destinationCity.hasBeenVisited():
+                continue
+            costToDestinationCity = originCity.costTo(destinationCity)
+            if costToDestinationCity < lowestCost:
+                lowestCost = costToDestinationCity
+                lowestCity = destinationCity
+
+        return lowestCity if lowestCity is not None else None
+
+
     ''' <summary>
 		This is the entry point for the branch-and-bound algorithm that you will implement
 		</summary>
@@ -118,3 +136,5 @@ class TSPSolver:
     def branchAndBound(self, time_allowance=60.0):
         # TODO: implement
         pass
+
+
