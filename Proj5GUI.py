@@ -229,12 +229,12 @@ class Proj5GUI( QMainWindow ):
         cities = self._scenario.getCities()
         self.view.clearEdges()
         for city in cities:
-           self.view.addLabel( QPointF(city._x, city._y), city._name, \
+           self.view.addLabel( QPointF(city.x, city.y), city.name, \
                                labelColor=(128,128,128), xoffset=10.0 )
 
     def generateClicked(self):
         self.generateNetwork()
-        self.view.addPoints( [QPointF(c._x,c._y) for c in self._scenario.getCities()], (0,0,0) )
+        self.view.addPoints( [QPointF(c.x,c.y) for c in self._scenario.getCities()], (0,0,0) )
         self.solveButton.setEnabled(True)
         self.graphReady = True
         self.checkGenInputs()

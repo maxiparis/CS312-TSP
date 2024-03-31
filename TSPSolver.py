@@ -16,10 +16,10 @@ import itertools
 
 class TSPSolver:
     def __init__(self, gui_view):
-        self._scenario = None
+        self.scenario = None
 
     def setupWithScenario(self, scenario):
-        self._scenario = scenario
+        self.scenario = scenario
 
     ''' <summary>
 		This is the entry point for the default solver
@@ -34,7 +34,7 @@ class TSPSolver:
 
     def defaultRandomTour(self, time_allowance=60.0):
         results = {}
-        cities = self._scenario.getCities()
+        cities = self.scenario.getCities()
         ncities = len(cities)
         foundTour = False
         count = 0
@@ -75,7 +75,7 @@ class TSPSolver:
 	'''
     def greedy(self, time_allowance = 60.0):
         results = {}
-        cities = self._scenario.getCities()
+        cities = self.scenario.getCities()
         numberCities = len(cities)
         foundTour = False  # There is a path from a start city to that same start city (tour)
         count = 0
@@ -183,16 +183,16 @@ class TSPSolver:
 		not include the initial BSSF), the best solution found, and three more ints:
 		max queue size, total number of states created, and number of pruned states.</returns>
 	'''
-    def branchAndBound(self, time_allowance=60.0):
+    def branchAndBound(self, time_allowance = 60.0):
         results = {}
-        cities = self._scenario.getCities()
+        cities = self.scenario.getCities()
         numberCities = len(cities)
         foundTour = False  # There is a path from a start city to that same start city (tour)
         count = 0
         bssf = None
         start_time = time.time()
 
-
+        matrix = self.convertCitiesIntoStartMatrix(cities)
 
         end_time = time.time()
         results['cost'] = bssf.cost if foundTour else math.inf
@@ -205,7 +205,20 @@ class TSPSolver:
         return results
 
 
+    def convertCitiesIntoStartMatrix(self, cities):
+        length = len(cities)
+        # Initialize matrix with inf
+        matrix = [[np.inf for _ in range(length)] for _ in range(length)]
 
+        # Populate, go through each cell in the length * length array
+        for row in range(length):
+            originCity = cities[row]
+            for col in range(length):
+                destinationCity = cities[col]
+                # Distance from row to col
+                matrix[row][col] = originCity.costTo(destinationCity)
+
+        return matrix
 
 
 

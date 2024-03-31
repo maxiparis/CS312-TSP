@@ -10,9 +10,9 @@ import time
 class TSPSolution:
     def __init__(self, listOfCities):
         self.route = listOfCities
-        self.cost = self._costOfRoute()
+        self.cost = self.costOfRoute()
 
-    def _costOfRoute(self):
+    def costOfRoute(self):
         """
         Calculates the cost of the route this class holds.
         :return: the cost of the route
@@ -54,29 +54,29 @@ class Scenario:
     HARD_MODE_FRACTION_TO_REMOVE = 0.20  # Remove 20% of the edges
 
     def __init__(self, city_locations, difficulty, rand_seed):
-        self._difficulty = difficulty
+        self.difficulty = difficulty
 
         if difficulty == "Normal" or difficulty == "Hard":
-            self._cities = [City(pt.x(), pt.y(), \
+            self.cities = [City(pt.x(), pt.y(), \
                                  random.uniform(0.0, 1.0) \
                                  ) for pt in city_locations]
         elif difficulty == "Hard (Deterministic)":
             random.seed(rand_seed)
-            self._cities = [City(pt.x(), pt.y(), \
+            self.cities = [City(pt.x(), pt.y(), \
                                  random.uniform(0.0, 1.0) \
                                  ) for pt in city_locations]
         else:
-            self._cities = [City(pt.x(), pt.y()) for pt in city_locations]
+            self.cities = [City(pt.x(), pt.y()) for pt in city_locations]
 
         num = 0
-        for city in self._cities:
+        for city in self.cities:
             city.setScenario(self)
             city.setIndexAndName(num, nameForInt(num + 1))
             num += 1
 
         # Assume all edges exists except self-edges
-        ncities = len(self._cities)
-        self._edge_exists = (np.ones((ncities, ncities)) - np.diag(np.ones(ncities))) > 0
+        ncities = len(self.cities)
+        self.edge_exists = (np.ones((ncities, ncities)) - np.diag(np.ones(ncities))) > 0
 
         if difficulty == "Hard":
             self.thinEdges()
@@ -84,7 +84,7 @@ class Scenario:
             self.thinEdges(deterministic=True)
 
     def getCities(self):
-        return self._cities
+        return self.cities
 
     def randperm(self, n):
         perm = np.arange(n)
@@ -96,11 +96,11 @@ class Scenario:
         return perm
 
     def thinEdges(self, deterministic=False):
-        ncities = len(self._cities)
+        ncities = len(self.cities)
         edge_count = ncities * (ncities - 1)  # can't have self-edge
         num_to_remove = np.floor(self.HARD_MODE_FRACTION_TO_REMOVE * edge_count)
 
-        can_delete = self._edge_exists.copy()
+        can_delete = self.edge_exists.copy()
 
         # Set aside a route to ensure at least one tour exists
         route_keep = np.random.permutation(ncities)
@@ -117,19 +117,19 @@ class Scenario:
             else:
                 src = np.random.randint(ncities)
                 dst = np.random.randint(ncities)
-            if self._edge_exists[src, dst] and can_delete[src, dst]:
-                self._edge_exists[src, dst] = False
+            if self.edge_exists[src, dst] and can_delete[src, dst]:
+                self.edge_exists[src, dst] = False
                 num_to_remove -= 1
 
 
 class City:
     def __init__(self, x, y, elevation=0.0):
-        self._x = x
-        self._y = y
-        self._elevation = elevation
-        self._scenario = None
-        self._index = -1
-        self._name = None
+        self.x = x
+        self.y = y
+        self.elevation = elevation
+        self.scenario = None
+        self.index = -1
+        self.name = None
         self.visited = False
 
     def setVisited(self, visited: bool):
@@ -139,11 +139,11 @@ class City:
         return self.visited
 
     def setIndexAndName(self, index, name):
-        self._index = index
-        self._name = name
+        self.index = index
+        self.name = name
 
     def setScenario(self, scenario):
-        self._scenario = scenario
+        self.scenario = scenario
 
     ''' <summary>
 		How much does it cost to get from this city to the destination?
@@ -161,24 +161,24 @@ class City:
         # Use this in all difficulties, it ensures INF for self-edge
 
         # If there is no edge between cities with index self._index to other_city._index
-        if not self._scenario._edge_exists[self._index, other_city._index]:
+        if not self.scenario.edge_exists[self.index, other_city.index]:
             return np.inf
 
         # Euclidean Distance
-        cost = math.sqrt((other_city._x - self._x) ** 2 +
-                         (other_city._y - self._y) ** 2)
+        cost = math.sqrt((other_city.x - self.x) ** 2 +
+                         (other_city.y - self.y) ** 2)
 
         # For Medium and Hard modes, add in an asymmetric cost (in easy mode it is zero).
-        if not self._scenario._difficulty == 'Easy':
-            cost += (other_city._elevation - self._elevation)
+        if not self.scenario.difficulty == 'Easy':
+            cost += (other_city.elevation - self.elevation)
             if cost < 0.0:
                 cost = 0.0
 
         return int(math.ceil(cost * self.MAP_SCALE))
 
     def __str__(self):
-        return f"City({self._name}): Elevation: {self._elevation}, Index: {self._index}, Coordinates: ({self._x}, {self._y}), Visited: {self.visited}"
+        return f"City({self.name}): Elevation: {self.elevation}, Index: {self.index}, Coordinates: ({self.x}, {self.y}), Visited: {self.visited}"
 
     def __repr__(self):
-        return f"City({self._name}): Elevation: {self._elevation}, Index: {self._index}, Coordinates: ({self._x}, {self._y}), Visited: {self.visited}"
+        return f"City({self.name}): Elevation: {self.elevation}, Index: {self.index}, Coordinates: ({self.x}, {self.y}), Visited: {self.visited}"
 
