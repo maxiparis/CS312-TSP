@@ -4,15 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8147444f-877c-400d-86d6-855a21a90541" name="Changes" comment="BranchBound: convertCitiesIntoStartMatrix">
-      <change afterPath="$PROJECT_DIR$/test_TSPSolver.py" afterDir="false" />
+    <list default="true" id="8147444f-877c-400d-86d6-855a21a90541" name="Changes" comment="Node created">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Node.py" beforeDir="false" afterPath="$PROJECT_DIR$/Node.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TSPSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/TSPSolver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -47,7 +54,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Python tests.Python tests for test_TSPSolver.TestTSPSolver.testReduceMatrix">
+  <component name="RunManager" selected="Python.Proj5GUI">
     <configuration name="Proj5GUI" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="project5-tsp" />
       <option name="ENV_FILES" value="" />
@@ -90,8 +97,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for test_TSPSolver.TestTSPSolver.testReduceMatrix" />
         <item itemvalue="Python.Proj5GUI" />
+        <item itemvalue="Python tests.Python tests for test_TSPSolver.TestTSPSolver.testReduceMatrix" />
       </list>
     </recent_temporary>
   </component>
@@ -111,7 +118,7 @@
       <option name="presentableId" value="Default" />
       <updated>1711214454898</updated>
       <workItem from="1711214460027" duration="13673000" />
-      <workItem from="1711846826396" duration="6937000" />
+      <workItem from="1711846826396" duration="8033000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -177,7 +184,23 @@
       <option name="project" value="LOCAL" />
       <updated>1711855058302</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="BranchBound: reduceMatrix i/tested">
+      <option name="closed" value="true" />
+      <created>1711861615158</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1711861615158</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Node created">
+      <option name="closed" value="true" />
+      <created>1711862396887</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1711862396887</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,24 +226,21 @@
     <MESSAGE value="Greedy: findTourGreedy finished" />
     <MESSAGE value="BranchBound: starting" />
     <MESSAGE value="BranchBound: convertCitiesIntoStartMatrix" />
-    <option name="LAST_COMMIT_MESSAGE" value="BranchBound: convertCitiesIntoStartMatrix" />
+    <MESSAGE value="BranchBound: reduceMatrix i/tested" />
+    <MESSAGE value="Node created" />
+    <option name="LAST_COMMIT_MESSAGE" value="Node created" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TSPSolver.py</url>
-          <line>186</line>
+          <line>187</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TSPSolver.py</url>
-          <line>251</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TSPSolver.py</url>
-          <line>195</line>
+          <line>196</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
@@ -235,7 +255,7 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/project5_tsp$.coverage" NAME=" Coverage Results" MODIFIED="1711861416961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/project5_tsp$.coverage" NAME=" Coverage Results" MODIFIED="1711861574421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/project5_tsp$Proj5GUI.coverage" NAME="Proj5GUI Coverage Results" MODIFIED="1711860903592" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

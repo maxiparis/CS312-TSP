@@ -10,6 +10,7 @@ else:
 import time
 import numpy as np
 from TSPClasses import *
+from Node import *
 import heapq
 import itertools
 
@@ -195,9 +196,9 @@ class TSPSolver:
         matrix = self.convertCitiesIntoStartMatrix(cities, numberCities)
         firstLB = self.reduceMatrix(matrix, numberCities)
 
-        # Testing
-        # print(matrix)
-        # print(firstLB)
+        #  Creating first node
+        root = Node(matrix.copy(), firstLB, 0, cities[0].name)
+        #  TODO: keep working here
 
         end_time = time.time()
         results['cost'] = bssf.cost if foundTour else math.inf

@@ -1,8 +1,8 @@
 class Node:
-    def __init__(self):
-        self.reducedMatrix = None
-        self.lowerBound = None
+    def __init__(self, matrix, lowerBound, level, pathVisited):
+        self.reducedMatrix = matrix
+        self.lowerBound = lowerBound
         #  self.currentCityNumber = None
-        self.level = None
-        self.pathVisited = []
+        self.level = level
+        self.pathVisited = pathVisited
 
