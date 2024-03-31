@@ -192,7 +192,12 @@ class TSPSolver:
         bssf = None
         start_time = time.time()
 
-        matrix = self.convertCitiesIntoStartMatrix(cities)
+        matrix = self.convertCitiesIntoStartMatrix(cities, numberCities)
+        firstLB = self.reduceMatrix(matrix, numberCities)
+
+        # Testing
+        # print(matrix)
+        # print(firstLB)
 
         end_time = time.time()
         results['cost'] = bssf.cost if foundTour else math.inf
@@ -205,8 +210,7 @@ class TSPSolver:
         return results
 
 
-    def convertCitiesIntoStartMatrix(self, cities):
-        length = len(cities)
+    def convertCitiesIntoStartMatrix(self, cities, length):
         # Initialize matrix with inf
         matrix = [[np.inf for _ in range(length)] for _ in range(length)]
 
@@ -220,6 +224,32 @@ class TSPSolver:
 
         return matrix
 
+    def reduceMatrix(self, matrix, length):
+        lowerBound = 0
+        #  Reduce row
+        for row in range(length):
+            rowContainsZero = 0 in matrix[row]
+            if rowContainsZero:
+                continue
+
+            minNumberInRow = min(matrix[row])
+            lowerBound += minNumberInRow
+            for col in range(length):
+                matrix[row][col] -= minNumberInRow
+
+        # Reduce column
+        for col in range(length):
+            minNumberInCol = np.inf
+            for row in range(length):
+                if matrix[row][col] < minNumberInCol:
+                    minNumberInCol = matrix[row][col]
+
+            if minNumberInCol != 0:
+                lowerBound += minNumberInCol
+                for row in range(length):
+                    matrix[row][col] -= minNumberInCol
+
+        return lowerBound
 
 
 
