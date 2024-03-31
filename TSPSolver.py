@@ -99,8 +99,6 @@ class TSPSolver:
             else:  # Every city was a start point and no route was found
                 break  # ... out of the loop and finish
 
-
-
         end_time = time.time()
 
         results['cost'] = bssf.cost if foundTour else math.inf
@@ -155,7 +153,7 @@ class TSPSolver:
 
 
 
-    def findShortestPathFrom(self, originCity, cities, numberCities):  # TODO: TEST
+    def findShortestPathFrom(self, originCity, cities, numberCities):
         """
         Goes through each edge coming from originCity and returns the city with the minimum cost edge.
         :param numberCities:
@@ -186,8 +184,26 @@ class TSPSolver:
 		max queue size, total number of states created, and number of pruned states.</returns>
 	'''
     def branchAndBound(self, time_allowance=60.0):
-        # TODO: implement
-        pass
+        results = {}
+        cities = self._scenario.getCities()
+        numberCities = len(cities)
+        foundTour = False  # There is a path from a start city to that same start city (tour)
+        count = 0
+        bssf = None
+        start_time = time.time()
+
+
+
+        end_time = time.time()
+        results['cost'] = bssf.cost if foundTour else math.inf
+        results['time'] = end_time - start_time
+        results['count'] = count
+        results['soln'] = bssf
+        results['max'] = None
+        results['total'] = None
+        results['pruned'] = None
+        return results
+
 
 
 

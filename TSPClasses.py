@@ -130,7 +130,7 @@ class City:
         self._scenario = None
         self._index = -1
         self._name = None
-        self.visited = False  # TODO: does this work to check if a city was visited?
+        self.visited = False
 
     def setVisited(self, visited: bool):
         self.visited = visited
