@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+import heapq
 from which_pyqt import PYQT_VER
 
 if PYQT_VER == 'PYQT5':
@@ -194,11 +194,26 @@ class TSPSolver:
         start_time = time.time()
 
         matrix = self.convertCitiesIntoStartMatrix(cities, numberCities)
-        firstLB = self.reduceMatrix(matrix, numberCities)
 
         #  Creating first node
-        root = Node(matrix.copy(), firstLB, 0, cities[0].name)
-        #  TODO: keep working here
+        root = Node(matrix.copy(), 0, cities[0], cities)
+        priorityQueue = []
+        heapq.heappush(priorityQueue, root)
+
+        #  Find bssf from greedy algorithm
+        greedyResults = self.greedy()
+        bssf = greedyResults['soln']
+
+        while not priorityQueue and time.time() - start_time < time_allowance:
+            poppedNode = heapq.heappop(priorityQueue)
+            if poppedNode.lowerBound < bssf.cost:
+                children = self.expandTree(poppedNode)
+
+
+
+
+
+
 
         end_time = time.time()
         results['cost'] = bssf.cost if foundTour else math.inf
@@ -225,32 +240,43 @@ class TSPSolver:
 
         return matrix
 
-    def reduceMatrix(self, matrix, length):
-        lowerBound = 0
-        #  Reduce row
-        for row in range(length):
-            rowContainsZero = 0 in matrix[row]
-            if rowContainsZero:
-                continue
+    # def reduceMatrix(self, matrix, length):
+    #     lowerBound = 0
+    #     #  Reduce row
+    #     for row in range(length):
+    #         rowContainsZero = 0 in matrix[row]
+    #         if rowContainsZero:
+    #             continue
+    #
+    #         minNumberInRow = min(matrix[row])
+    #         lowerBound += minNumberInRow
+    #         for col in range(length):
+    #             matrix[row][col] -= minNumberInRow
+    #
+    #     # Reduce column
+    #     for col in range(length):
+    #         minNumberInCol = np.inf
+    #         for row in range(length):
+    #             if matrix[row][col] < minNumberInCol:
+    #                 minNumberInCol = matrix[row][col]
+    #
+    #         if minNumberInCol != 0:
+    #             lowerBound += minNumberInCol
+    #             for row in range(length):
+    #                 matrix[row][col] -= minNumberInCol
+    #
+    #     return lowerBound
 
-            minNumberInRow = min(matrix[row])
-            lowerBound += minNumberInRow
-            for col in range(length):
-                matrix[row][col] -= minNumberInRow
+    def expandTree(self, node):
+        """
+        Creates a new child for each path the node can go. Each child will have its matrix reduced.
+        :param node:
+        :return:
+        """
+        children = []
 
-        # Reduce column
-        for col in range(length):
-            minNumberInCol = np.inf
-            for row in range(length):
-                if matrix[row][col] < minNumberInCol:
-                    minNumberInCol = matrix[row][col]
 
-            if minNumberInCol != 0:
-                lowerBound += minNumberInCol
-                for row in range(length):
-                    matrix[row][col] -= minNumberInCol
-
-        return lowerBound
+        return children
 
 
 
