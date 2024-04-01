@@ -1,4 +1,5 @@
 from unittest import TestCase
+import heapq
 import numpy as np
 from TSPSolver import *
 
@@ -26,3 +27,25 @@ class TestTSPSolver(TestCase):
 
         result = self.solver.reduceMatrix(matrix, 4)
         self.assertEqual(3970, result, "the LB are not the same.")
+
+    def testPQ(self):
+        node1 = Node(None, 10, None, None)
+        node2 = Node(None, 20, None, None)
+        node3 = Node(None, 30, None, None)
+
+        priorityQueue = []
+        heapq.heappush(priorityQueue, node1)
+        heapq.heappush(priorityQueue, node2)
+        heapq.heappush(priorityQueue, node3)
+
+        poppedNode = heapq.heappop(priorityQueue)
+        self.assertEqual(node1, poppedNode, "Node 1 was not popped first.")
+
+        poppedNode = heapq.heappop(priorityQueue)
+        self.assertEqual(node2, poppedNode, "Node 2 was not popped second.")
+
+        poppedNode = heapq.heappop(priorityQueue)
+        self.assertEqual(node3, poppedNode, "Node 1 was not popped third.")
+
+
+

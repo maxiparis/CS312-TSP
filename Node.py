@@ -6,3 +6,7 @@ class Node:
         self.level = level
         self.pathVisited = pathVisited
 
+
+    def __lt__(self, other):
+        return self.lowerBound < other.lowerBound
+
