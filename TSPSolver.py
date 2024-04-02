@@ -196,7 +196,7 @@ class TSPSolver:
         matrix = self.convertCitiesIntoStartMatrix(cities, numberCities)
 
         #  Creating first node
-        root = Node(matrix.copy(), 0, [], cities[0], cities)
+        root = Node(matrix.copy(), 0, [], cities[0], cities, 0, 0)
         priorityQueue = []
         heapq.heappush(priorityQueue, root)
 
@@ -204,10 +204,11 @@ class TSPSolver:
         greedyResults = self.greedy()
         bssf = greedyResults['soln']
 
-        while not priorityQueue and time.time() - start_time < time_allowance:
+        # while not priorityQueue and time.time() - start_time < time_allowance:
+        while priorityQueue:
             poppedNode = heapq.heappop(priorityQueue)
             if poppedNode.lowerBound < bssf.cost:
-                children = self.expandTree(poppedNode)
+                children = poppedNode.expandTree()
 
 
 

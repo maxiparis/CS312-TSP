@@ -258,8 +258,8 @@ class Proj5GUI( QMainWindow ):
                 labelColor = (64,64,255)
                 for edge in edges:
                     pt1,pt2,label = edge
-                    self.view.addEdge( QPointF(pt1._x,pt1._y), \
-                                       QPointF(pt2._x,pt2._y), \
+                    self.view.addEdge( QPointF(pt1.x,pt1.y), \
+                                       QPointF(pt2.x,pt2.y), \
                                        '{}'.format(label), edgeColor, labelColor )
         else:
             self.statusBar.showMessage('No Solution Found.')
