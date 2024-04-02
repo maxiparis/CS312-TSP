@@ -84,7 +84,7 @@ class Node:
                 parentMatrixCopy = copy.deepcopy(self.reducedMatrix)
                 matrixWithInfinities = self.makeRowAndColumnInfinite(parentMatrixCopy, parentIndex, childIndex)
 
-                pathVisitedCopy = copy.deepcopy(self.pathVisited)
+                pathVisitedCopy = copy.copy(self.pathVisited)
                 tempNode = Node(matrixWithInfinities, self.level+1, pathVisitedCopy, city, self.cities,
                                 self.reducedMatrix[parentIndex][childIndex], self.lowerBound)
                 children.append(tempNode)

@@ -189,7 +189,6 @@ class TSPSolver:
         results = {}
         cities = self.scenario.getCities()
         numberCities = len(cities)
-        foundTour = False  # There is a path from a start city to that same start city (tour)
         bssf = None
         start_time = time.time()
         maxPriorityQueueSize = 0
@@ -208,8 +207,8 @@ class TSPSolver:
         greedyResults = self.greedy()
         bssf = greedyResults['soln']
 
-        # while priorityQueue and time.time() - start_time < time_allowance:
-        while priorityQueue:  # debugging
+        while priorityQueue and time.time() - start_time < time_allowance:
+        # while priorityQueue:  # debugging
             maxPriorityQueueSize = max(len(priorityQueue), maxPriorityQueueSize)
             poppedNode = heapq.heappop(priorityQueue)
             if poppedNode.lowerBound < bssf.cost:
@@ -220,7 +219,6 @@ class TSPSolver:
                         solutions += 1
                         if node.test() < bssf.cost:
                             bssf = TSPSolution(node.pathVisited)
-                            foundTour = True
                     elif node.lowerBound < bssf.cost:
                         heapq.heappush(priorityQueue, node)
                     else:
