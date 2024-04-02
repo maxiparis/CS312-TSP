@@ -185,15 +185,15 @@ class TSPSolver:
 		max queue size, total number of states created, and number of pruned states.</returns>
 	'''
     def branchAndBound(self, time_allowance = 60.0):
+        Node.resetCount()
         results = {}
         cities = self.scenario.getCities()
         numberCities = len(cities)
         foundTour = False  # There is a path from a start city to that same start city (tour)
-        count = 0
         bssf = None
         start_time = time.time()
         maxPriorityQueueSize = 0
-        childrenCount = 0
+        # childrenCount = 0
         pruned = 0
         solutions = 0
 
@@ -208,29 +208,33 @@ class TSPSolver:
         greedyResults = self.greedy()
         bssf = greedyResults['soln']
 
-        while priorityQueue and time.time() - start_time < time_allowance:
-        # while priorityQueue:
+        # while priorityQueue and time.time() - start_time < time_allowance:
+        while priorityQueue:  # debugging
             maxPriorityQueueSize = max(len(priorityQueue), maxPriorityQueueSize)
             poppedNode = heapq.heappop(priorityQueue)
             if poppedNode.lowerBound < bssf.cost:
                 children = poppedNode.expandTree()
-                childrenCount += len(children)
+                # childrenCount += len(children)
                 for node in children:
-                    if node.test() < bssf.cost:
-                        bssf = TSPSolution(node.pathVisited)
-                        foundTour = True
+                    if node.test() < np.inf:
+                        solutions += 1
+                        if node.test() < bssf.cost:
+                            bssf = TSPSolution(node.pathVisited)
+                            foundTour = True
                     elif node.lowerBound < bssf.cost:
                         heapq.heappush(priorityQueue, node)
                     else:
                         pruned += 1
+            else:
+                pruned += 1
 
         end_time = time.time()
-        results['cost'] = bssf.cost if foundTour else math.inf
+        results['cost'] = bssf.cost
         results['time'] = end_time - start_time
-        results['count'] = count
+        results['count'] = solutions
         results['soln'] = bssf
         results['max'] = maxPriorityQueueSize
-        results['total'] = childrenCount
+        results['total'] = Node.nodesCreated
         results['pruned'] = pruned
         return results
 

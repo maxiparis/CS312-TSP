@@ -6,6 +6,7 @@ import TSPClasses
 
 
 class Node:
+    nodesCreated = 0
 
     def __init__(self, unreducedMatrix, level, pathVisited, cityForNewPath, cities, costFromParent, parentLB):
         """
@@ -25,6 +26,15 @@ class Node:
         self.pathVisited: list = pathVisited  # to know what path (new nodes to create) to follow
         self.addToPath(cityForNewPath)
         self.cities: list = cities
+        self.incrementCount()
+
+    @classmethod
+    def incrementCount(cls):
+        cls.nodesCreated += 1
+
+    @classmethod
+    def resetCount(cls):
+        cls.nodesCreated = 0
 
     def __lt__(self, other):
         return self.lowerBound < other.lowerBound
