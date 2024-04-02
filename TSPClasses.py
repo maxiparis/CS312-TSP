@@ -182,3 +182,10 @@ class City:
     def __repr__(self):
         return f"City({self.name}): Elevation: {self.elevation}, Index: {self.index}, Coordinates: ({self.x}, {self.y}), Visited: {self.visited}"
 
+
+    def __eq__(self, other):
+        if isinstance(other, City):
+            return self.name == other.name
+        return False
+
+

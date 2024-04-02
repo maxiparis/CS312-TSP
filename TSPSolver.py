@@ -192,6 +192,10 @@ class TSPSolver:
         count = 0
         bssf = None
         start_time = time.time()
+        maxPriorityQueueSize = 0
+        childrenCount = 0
+        pruned = 0
+        solutions = 0
 
         matrix = self.convertCitiesIntoStartMatrix(cities, numberCities)
 
@@ -204,26 +208,30 @@ class TSPSolver:
         greedyResults = self.greedy()
         bssf = greedyResults['soln']
 
-        # while not priorityQueue and time.time() - start_time < time_allowance:
-        while priorityQueue:
+        while priorityQueue and time.time() - start_time < time_allowance:
+        # while priorityQueue:
+            maxPriorityQueueSize = max(len(priorityQueue), maxPriorityQueueSize)
             poppedNode = heapq.heappop(priorityQueue)
             if poppedNode.lowerBound < bssf.cost:
                 children = poppedNode.expandTree()
-
-
-
-
-
-
+                childrenCount += len(children)
+                for node in children:
+                    if node.test() < bssf.cost:
+                        bssf = TSPSolution(node.pathVisited)
+                        foundTour = True
+                    elif node.lowerBound < bssf.cost:
+                        heapq.heappush(priorityQueue, node)
+                    else:
+                        pruned += 1
 
         end_time = time.time()
         results['cost'] = bssf.cost if foundTour else math.inf
         results['time'] = end_time - start_time
         results['count'] = count
         results['soln'] = bssf
-        results['max'] = None
-        results['total'] = None
-        results['pruned'] = None
+        results['max'] = maxPriorityQueueSize
+        results['total'] = childrenCount
+        results['pruned'] = pruned
         return results
 
 
@@ -240,44 +248,4 @@ class TSPSolver:
                 matrix[row][col] = originCity.costTo(destinationCity)
 
         return matrix
-
-    # def reduceMatrix(self, matrix, length):
-    #     lowerBound = 0
-    #     #  Reduce row
-    #     for row in range(length):
-    #         rowContainsZero = 0 in matrix[row]
-    #         if rowContainsZero:
-    #             continue
-    #
-    #         minNumberInRow = min(matrix[row])
-    #         lowerBound += minNumberInRow
-    #         for col in range(length):
-    #             matrix[row][col] -= minNumberInRow
-    #
-    #     # Reduce column
-    #     for col in range(length):
-    #         minNumberInCol = np.inf
-    #         for row in range(length):
-    #             if matrix[row][col] < minNumberInCol:
-    #                 minNumberInCol = matrix[row][col]
-    #
-    #         if minNumberInCol != 0:
-    #             lowerBound += minNumberInCol
-    #             for row in range(length):
-    #                 matrix[row][col] -= minNumberInCol
-    #
-    #     return lowerBound
-
-    def expandTree(self, node):
-        """
-        Creates a new child for each path the node can go. Each child will have its matrix reduced.
-        :param node:
-        :return:
-        """
-        children = []
-
-
-        return children
-
-
 

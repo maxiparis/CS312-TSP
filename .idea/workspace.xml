@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8147444f-877c-400d-86d6-855a21a90541" name="Changes" comment="Node fixes">
+    <list default="true" id="8147444f-877c-400d-86d6-855a21a90541" name="Changes" comment="Node.expandTree">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Node.py" beforeDir="false" afterPath="$PROJECT_DIR$/Node.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proj5GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Proj5GUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TSPClasses.py" beforeDir="false" afterPath="$PROJECT_DIR$/TSPClasses.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TSPSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/TSPSolver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +45,7 @@
     "Python tests.Python tests for test_Node.TestNode.test_add_to_path.executor": "Run",
     "Python tests.Python tests for test_TSPSolver.TestTSPSolver.testPQ.executor": "Run",
     "Python tests.Python tests for test_TSPSolver.TestTSPSolver.testReduceMatrix.executor": "Debug",
-    "Python.Proj5GUI.executor": "Debug",
+    "Python.Proj5GUI.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "node.js.detected.package.eslint": "true",
@@ -157,7 +157,7 @@
       <workItem from="1711214460027" duration="13673000" />
       <workItem from="1711846826396" duration="8711000" />
       <workItem from="1711977821065" duration="5263000" />
-      <workItem from="1711985845219" duration="5750000" />
+      <workItem from="1711985845219" duration="9475000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -271,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712016278450</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Node.expandTree">
+      <option name="closed" value="true" />
+      <created>1712021098416</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1712021098416</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,21 +311,30 @@
     <MESSAGE value="Node: implemented PQ lessThan" />
     <MESSAGE value="Progress" />
     <MESSAGE value="Node fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Node fixes" />
+    <MESSAGE value="Node.expandTree" />
+    <option name="LAST_COMMIT_MESSAGE" value="Node.expandTree" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Node.py</url>
-          <line>79</line>
-          <option name="timeStamp" value="10" />
+          <url>file://$PROJECT_DIR$/TSPSolver.py</url>
+          <line>210</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="children" />
+        <watch expression="bssf.cost" language="Python" />
+        <watch expression="node.lowerBound" language="Python" />
+        <watch expression="priorityQueue" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/project5_tsp$.coverage" NAME=" Coverage Results" MODIFIED="1712015882738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/project5_tsp$Proj5GUI.coverage" NAME="Proj5GUI Coverage Results" MODIFIED="1712020535100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/project5_tsp$Proj5GUI.coverage" NAME="Proj5GUI Coverage Results" MODIFIED="1712027711289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -85,7 +85,7 @@ class Node:
     def makeRowAndColumnInfinite(self, parentMatrix, row, column):
         """
         Sets the rows and columns and position (column, row) to infinity in the parentMatrix
-        :param parentMatrix:
+        :param parentMatrix
         :param row
         :param column
         :return:
@@ -97,3 +97,12 @@ class Node:
         parentMatrix[column][row] = np.inf
         return parentMatrix
 
+    def test(self) -> int:
+        """
+        Tests if the pathVisited is complete (go from the first element to the end)
+        :return: LB if the path is complete, 0 otherwise
+        """
+        if self.level == self.length - 1:
+            return self.lowerBound
+
+        return np.inf
