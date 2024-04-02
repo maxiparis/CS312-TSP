@@ -5,7 +5,7 @@ import TSPClasses
 
 class Node:
 
-    def __init__(self, unreducedMatrix, level, city, cities):
+    def __init__(self, unreducedMatrix, level, pathVisited, cityForNewPath, cities):
         """
         Creates a new node. Computes the reducedMatrix when is created.
         :param unreducedMatrix: unreduced matrix coming from parent with .copy()
@@ -13,16 +13,12 @@ class Node:
         :param city: city that will be added to the pathVisited array
         :param cities: arrays of cities. Used for expanding the tree.
         """
-        self.reducedMatrix = self.reduceMatrix(unreducedMatrix)  # 2D Array
-        self.length: int = len(self.reducedMatrix)
         self.lowerBound: int = None
+        self.length: int = len(unreducedMatrix)
+        self.reducedMatrix = self.reduceMatrix(unreducedMatrix)  # 2D Array
         self.level: int = level  # to know when to end
-        self.pathVisited: list = []  # to know what path (new nodes to create) to follow
-
-        # FIXME: fix the way that pathVisited is created. Needs to get a list from the parent, and then add the city
-
-
-        self.addToPath(city)
+        self.pathVisited: list = pathVisited  # to know what path (new nodes to create) to follow
+        self.addToPath(cityForNewPath)
         self.cities: list = cities
 
     def __lt__(self, other):
@@ -60,4 +56,7 @@ class Node:
 
     def expandTree(self):
         # TODO
-        pass
+        children = []
+
+
+        return children

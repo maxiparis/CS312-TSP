@@ -196,7 +196,7 @@ class TSPSolver:
         matrix = self.convertCitiesIntoStartMatrix(cities, numberCities)
 
         #  Creating first node
-        root = Node(matrix.copy(), 0, cities[0], cities)
+        root = Node(matrix.copy(), 0, [], cities[0], cities)
         priorityQueue = []
         heapq.heappush(priorityQueue, root)
 
