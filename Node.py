@@ -10,7 +10,8 @@ class Node:
 
     def __init__(self, unreducedMatrix, level, pathVisited, cityForNewPath, cities, costFromParent, parentLB):
         """
-        Creates a new node. Computes the reducedMatrix when is created.
+        Creates a new node. Computes the reducedMatrix and lowerBound when is created.
+
         :param unreducedMatrix: unreduced matrix coming from parent with .copy()
         :param level: depth, used to know when we have found a route
         :param pathVisited: the path from the parent
@@ -30,19 +31,35 @@ class Node:
 
     @classmethod
     def incrementCount(cls):
+        """
+        Increments the nodesCreated everytime a new node is created.
+        """
         cls.nodesCreated += 1
 
     @classmethod
     def resetCount(cls):
+        """
+        Resets the count for created nodes.
+        """
         cls.nodesCreated = 0
 
     def __lt__(self, other):
         return self.lowerBound < other.lowerBound
 
     def addToPath(self, city: TSPClasses.City):
+        """
+        Adds a new city to the path visited.
+        :param city: to be added to the path
+        """
         self.pathVisited.append(city)
 
     def reduceMatrix(self, unreducedMatrix, costFromParent, parentLB):
+        """
+        Reduces a matrix. Updates the node lower bound.
+        :param unreducedMatrix: matrix to be reduced
+        :param costFromParent: cost of going from the previous city (node) to this city.
+        :param parentLB: parent's lowerBound
+        """
         lowerBound = 0
         #  Reduce row
         for row in range(self.length):
@@ -74,10 +91,13 @@ class Node:
         return unreducedMatrix
 
     def expandTree(self):
+        """
+        Creates a new child node for every city that has not been visited by this state yet.
+        :return: The children of the current node.
+        """
         children = []
         for city in self.cities:
             if city not in self.pathVisited:
-                # Create a new node
                 parentCity = self.pathVisited[-1]
                 parentIndex = self.cities.index(parentCity)
                 childIndex = self.cities.index(city)
@@ -85,6 +105,7 @@ class Node:
                 matrixWithInfinities = self.makeRowAndColumnInfinite(parentMatrixCopy, parentIndex, childIndex)
 
                 pathVisitedCopy = copy.copy(self.pathVisited)
+                # Create a new node
                 tempNode = Node(matrixWithInfinities, self.level+1, pathVisitedCopy, city, self.cities,
                                 self.reducedMatrix[parentIndex][childIndex], self.lowerBound)
                 children.append(tempNode)
@@ -95,10 +116,10 @@ class Node:
     def makeRowAndColumnInfinite(self, parentMatrix, row, column):
         """
         Sets the rows and columns and position (column, row) to infinity in the parentMatrix
-        :param parentMatrix
-        :param row
-        :param column
-        :return:
+        :param parentMatrix matrix where cells will be updated
+        :param row to be set to infinity
+        :param column to be set to infinity
+        :return: the matrix with updated rows and columns
         """
         for i in range(len(parentMatrix)):
             parentMatrix[row][i] = np.inf
@@ -110,7 +131,7 @@ class Node:
     def test(self) -> int:
         """
         Tests if the pathVisited is complete (go from the first element to the end)
-        :return: LB if the path is complete, 0 otherwise
+        :return: LB if the path is complete, infinity otherwise
         """
         if self.level == self.length - 1:
             return self.lowerBound

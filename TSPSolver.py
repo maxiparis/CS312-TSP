@@ -79,7 +79,6 @@ class TSPSolver:
         cities = self.scenario.getCities()
         numberCities = len(cities)
         foundTour = False  # There is a path from a start city to that same start city (tour)
-        count = 0
         bssf = None
         start_time = time.time()
 
@@ -87,7 +86,6 @@ class TSPSolver:
         allCitiesHaveBeenAStart = startCityIndex == numberCities  # Used to check if I should keep traversing cities
 
         while not foundTour and time.time() - start_time < time_allowance:
-            count += 1  # Increase count on every iteration
             if not allCitiesHaveBeenAStart:
                 bssf, foundTour = self.findTourGreedy(cities[startCityIndex], cities, numberCities)
                 self.setCitiesToUnvisited(cities)
@@ -104,7 +102,7 @@ class TSPSolver:
 
         results['cost'] = bssf.cost if foundTour else math.inf
         results['time'] = end_time - start_time
-        results['count'] = count
+        results['count'] = 1 if foundTour else 0
         results['soln'] = bssf
         results['max'] = None
         results['total'] = None
@@ -157,8 +155,8 @@ class TSPSolver:
     def findShortestPathFrom(self, originCity, cities, numberCities):
         """
         Goes through each edge coming from originCity and returns the city with the minimum cost edge.
-        :param numberCities:
-        :param cities:
+        :param numberCities: cities length
+        :param cities: array of cities
         :param originCity: city where the edge will be going to another city.
         :return: the city with the lowest edge cost
         """
@@ -193,55 +191,60 @@ class TSPSolver:
         start_time = time.time()
         maxPriorityQueueSize = 0
         # childrenCount = 0
-        pruned = 0
-        solutions = 0
+        prunedCount = 0
+        solutionsCount = 0
 
-        matrix = self.convertCitiesIntoStartMatrix(cities, numberCities)
+        #  Creating the first matrix
+        rootMatrix = self.convertCitiesIntoStartMatrix(cities, numberCities)
 
-        #  Creating first node
-        root = Node(matrix.copy(), 0, [], cities[0], cities, 0, 0)
+        #  Creating first node and pushing it into the PQ
+        root = Node(rootMatrix.copy(), 0, [], cities[0], cities, 0, 0)
         priorityQueue = []
         heapq.heappush(priorityQueue, root)
 
-        #  Find bssf from greedy algorithm
+        #  Initializing bssf from greedy algorithm
         greedyResults = self.greedy()
         bssf = greedyResults['soln']
 
         while priorityQueue and time.time() - start_time < time_allowance:
-        # while priorityQueue:  # debugging
             maxPriorityQueueSize = max(len(priorityQueue), maxPriorityQueueSize)
             poppedNode = heapq.heappop(priorityQueue)
             if poppedNode.lowerBound < bssf.cost:
                 children = poppedNode.expandTree()
-                # childrenCount += len(children)
                 for node in children:
                     if node.test() < np.inf:
-                        solutions += 1
+                        solutionsCount += 1
                         if node.test() < bssf.cost:
                             bssf = TSPSolution(node.pathVisited)
                     elif node.lowerBound < bssf.cost:
                         heapq.heappush(priorityQueue, node)
                     else:
-                        pruned += 1
+                        prunedCount += 1
             else:
-                pruned += 1
+                prunedCount += 1
 
         end_time = time.time()
         results['cost'] = bssf.cost
         results['time'] = end_time - start_time
-        results['count'] = solutions
+        results['count'] = solutionsCount
         results['soln'] = bssf
         results['max'] = maxPriorityQueueSize
         results['total'] = Node.nodesCreated
-        results['pruned'] = pruned
+        results['pruned'] = prunedCount
         return results
 
 
     def convertCitiesIntoStartMatrix(self, cities, length):
+        """
+        Creates a 2d array or matrix from the data of a list cities
+        :param cities: source data
+        :param length: number of rows or columns the matrix will have
+        :return: the created matrix (it has not been reduced yet)
+        """
         # Initialize matrix with inf
         matrix = [[np.inf for _ in range(length)] for _ in range(length)]
 
-        # Populate, go through each cell in the length * length array
+        # Populate, go through each cell in the matrix
         for row in range(length):
             originCity = cities[row]
             for col in range(length):
