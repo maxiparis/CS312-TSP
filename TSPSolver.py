@@ -213,7 +213,9 @@ class TSPSolver:
             if poppedNode.lowerBound < bssf.cost:
                 children = poppedNode.expandTree()
                 for node in children:
-                    if node.test() < bssf.cost:
+                    print(bssf.cost)
+                    test = node.test()
+                    if test < bssf.cost:
                         solutionsCount += 1
                         bssf = TSPSolution(node.pathVisited)
                     elif node.lowerBound < bssf.cost:
@@ -224,6 +226,7 @@ class TSPSolver:
                 prunedCount += 1
 
         end_time = time.time()
+        print(bssf.cost)
         results['cost'] = bssf.cost
         results['time'] = end_time - start_time
         results['count'] = solutionsCount
