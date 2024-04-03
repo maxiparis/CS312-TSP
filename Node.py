@@ -44,7 +44,8 @@ class Node:
         cls.nodesCreated = 0
 
     def __lt__(self, other):
-        return self.lowerBound < other.lowerBound
+        # it needs to consider the lower bound and the depth (level)
+        return self.lowerBound / self.level < other.lowerBound / other.level
 
     def addToPath(self, city: TSPClasses.City):
         """

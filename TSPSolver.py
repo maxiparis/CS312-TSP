@@ -207,15 +207,15 @@ class TSPSolver:
         bssf = greedyResults['soln']
 
         while priorityQueue and time.time() - start_time < time_allowance:
+            # print("{:.1f}".format(time.time() - start_time))
             maxPriorityQueueSize = max(len(priorityQueue), maxPriorityQueueSize)
             poppedNode = heapq.heappop(priorityQueue)
             if poppedNode.lowerBound < bssf.cost:
                 children = poppedNode.expandTree()
                 for node in children:
-                    if node.test() < np.inf:
+                    if node.test() < bssf.cost:
                         solutionsCount += 1
-                        if node.test() < bssf.cost:
-                            bssf = TSPSolution(node.pathVisited)
+                        bssf = TSPSolution(node.pathVisited)
                     elif node.lowerBound < bssf.cost:
                         heapq.heappush(priorityQueue, node)
                     else:
