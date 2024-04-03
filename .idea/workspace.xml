@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8147444f-877c-400d-86d6-855a21a90541" name="Changes" comment="BranchBound: added better &quot;less than&quot; operator">
+    <list default="true" id="8147444f-877c-400d-86d6-855a21a90541" name="Changes" comment="BranchBound: infinity issue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Node.py" beforeDir="false" afterPath="$PROJECT_DIR$/Node.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TSPSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/TSPSolver.py" afterDir="false" />
@@ -53,7 +53,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Language Defaults",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -161,7 +161,7 @@
       <workItem from="1712068268148" duration="924000" />
       <workItem from="1712100024922" duration="3444000" />
       <workItem from="1712107777506" duration="34000" />
-      <workItem from="1712108172589" duration="4018000" />
+      <workItem from="1712108172589" duration="5757000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -323,7 +323,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712110179427</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="BranchBound: infinity issue">
+      <option name="closed" value="true" />
+      <created>1712113266744</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1712113266744</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,19 +369,20 @@
     <MESSAGE value="BranBound: faster" />
     <MESSAGE value="added comments" />
     <MESSAGE value="BranchBound: added better &quot;less than&quot; operator" />
-    <option name="LAST_COMMIT_MESSAGE" value="BranchBound: added better &quot;less than&quot; operator" />
+    <MESSAGE value="BranchBound: infinity issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="BranchBound: infinity issue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TSPSolver.py</url>
-          <line>217</line>
+          <line>220</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TSPSolver.py</url>
-          <line>227</line>
+          <line>230</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
@@ -389,6 +398,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/project5_tsp$.coverage" NAME=" Coverage Results" MODIFIED="1712015882738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/project5_tsp$Proj5GUI.coverage" NAME="Proj5GUI Coverage Results" MODIFIED="1712112996033" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/project5_tsp$Proj5GUI.coverage" NAME="Proj5GUI Coverage Results" MODIFIED="1712113838470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -193,6 +193,7 @@ class TSPSolver:
         # childrenCount = 0
         prunedCount = 0
         solutionsCount = 0
+        bssfToTestPathToOrigin = None
 
         #  Creating the first matrix
         rootMatrix = self.convertCitiesIntoStartMatrix(cities, numberCities)
@@ -215,9 +216,11 @@ class TSPSolver:
                 for node in children:
                     print(bssf.cost)
                     test = node.test()
-                    if test < bssf.cost:
-                        solutionsCount += 1
-                        bssf = TSPSolution(node.pathVisited)
+                    if test != np.inf:
+                        bssfToTestPathToOrigin = TSPSolution(node.pathVisited)
+                        if bssfToTestPathToOrigin.cost < bssf.cost:
+                            solutionsCount += 1
+                            bssf = bssfToTestPathToOrigin
                     elif node.lowerBound < bssf.cost:
                         heapq.heappush(priorityQueue, node)
                     else:

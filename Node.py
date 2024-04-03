@@ -134,13 +134,7 @@ class Node:
         Tests if the pathVisited is complete (go from the first element to the end)
         :return: LB if the path is complete, infinity otherwise
         """
-        if self.level == self.length - 1 and self.thereIsPathToOrigin():
+        if self.level == self.length - 1:
             return self.lowerBound
         else:
             return np.inf
-
-    def thereIsPathToOrigin(self):
-        indexOrigin = 0
-        lastCity = self.pathVisited[-1]
-        lastCityIndex = self.cities.index(lastCity)
-        return self.reducedMatrix[lastCityIndex][indexOrigin] != np.inf
